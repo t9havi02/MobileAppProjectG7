@@ -1,5 +1,6 @@
 package fi.oamk.groupfinderapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
@@ -23,5 +24,10 @@ class LoginActivity: AppCompatActivity() {
 
     fun loginSubmit(view: View) {
         Toast.makeText(this, "Button clicked", Toast.LENGTH_SHORT).show()
+    }
+
+    fun moveToRegister(view: View) {
+        val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
     }
 }
