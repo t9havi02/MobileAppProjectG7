@@ -1,5 +1,6 @@
 package fi.oamk.groupfinderapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -32,6 +33,8 @@ class RegisterActivity: AppCompatActivity() {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success")
                         val user = auth.currentUser
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
                         Toast.makeText(baseContext, "Authentication success",
                                 Toast.LENGTH_SHORT).show()
                     } else {
