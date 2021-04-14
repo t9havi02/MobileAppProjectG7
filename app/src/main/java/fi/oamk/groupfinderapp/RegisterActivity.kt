@@ -46,4 +46,9 @@ class RegisterActivity: AppCompatActivity() {
                 }
     }
 
+    fun moveToLogin(view: View) {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+    }
+
 }
