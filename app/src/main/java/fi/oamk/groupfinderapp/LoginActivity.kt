@@ -38,6 +38,8 @@ class LoginActivity: AppCompatActivity() {
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithEmail:success")
                     currentUser = auth.currentUser
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                     Toast.makeText(baseContext, "Auth success",
                         Toast.LENGTH_SHORT).show()
                 } else {
