@@ -20,6 +20,8 @@ class RegisterActivity: AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private val TAG: String = RegisterActivity::class.java.name
     private lateinit var uname: TextView
+    private lateinit var ucity: TextView
+    private lateinit var uage: TextView
     private lateinit var email: TextView
     private lateinit var password: TextView
     private lateinit var add_photo_btn: ImageView
@@ -30,6 +32,8 @@ class RegisterActivity: AppCompatActivity() {
         auth = Firebase.auth
         add_photo_btn = findViewById(R.id.add_photo_btn)
         uname = findViewById(R.id.reg_name)
+        ucity = findViewById(R.id.reg_city)
+        uage = findViewById(R.id.reg_age)
 
         add_photo_btn.setOnClickListener{
             val intent = Intent(Intent.ACTION_PICK)
@@ -91,7 +95,7 @@ class RegisterActivity: AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
 
-        val user = User(uid, uname.text.toString(), profileImageUrl)
+        val user = User(uid, uname.text.toString(), ucity.text.toString(), uage.text.toString(), profileImageUrl)
 
         ref.setValue(user)
                 .addOnSuccessListener {
@@ -105,4 +109,4 @@ class RegisterActivity: AppCompatActivity() {
     }
 }
 
-class User(val uid: String, val uname:String, val profileImageUrl: String)
+class User(val uid: String, val uname:String, val ucity: String, val uage: String, val profileImageUrl: String)
