@@ -51,12 +51,15 @@
         app:layout_constraintTop_toBottomOf="@+id/premiumText"
         tools:layout_editor_absoluteX="158dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recentList"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+    <fragment
+        android:id="@+id/fragment"
+        android:name="fi.oamk.groupfinderapp.PostFragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recentText"
-        tools:layout_editor_absoluteX="154dp" />
+        tools:layout="@layout/fragment_item_list"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
