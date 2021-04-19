@@ -1,7 +1,6 @@
 package fi.oamk.groupfinderapp
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -42,7 +41,6 @@ class ProfileActivity : AppCompatActivity() {
                 profile_age.text = "${user?.uage} years"
                 profile_name.text = (user?.uname)
                 Picasso.get().load(user?.profileImageUrl).into(profile_avatar);
-                Log.d("ProfileView", "${user?.uname} ")
             }
             override fun onCancelled(error: DatabaseError) {
 
