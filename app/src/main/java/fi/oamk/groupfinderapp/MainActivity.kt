@@ -25,10 +25,10 @@ class MainActivity : AppCompatActivity() {
         val posts: ArrayList<Any>
 
         database.child("posts").get().addOnSuccessListener {
-            val posts:ArrayList<Any> = it.value as ArrayList<Any>;
+            val dbposts:ArrayList<Any> = it.value as ArrayList<Any>;
 
-            posts.forEach {
-                val post = it as HashMap
+            dbposts.forEach {
+                val post = dbposts
             }
 
         }.addOnFailureListener{
