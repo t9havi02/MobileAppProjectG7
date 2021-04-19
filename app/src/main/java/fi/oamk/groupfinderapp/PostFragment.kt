@@ -8,21 +8,41 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import fi.oamk.groupfinderapp.dummy.DummyContent
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 /**
  * A fragment representing a list of Items.
  */
 class PostFragment : Fragment() {
 
-    private var columnCount = 1
+    private lateinit var posts: ArrayList<String>
+    private lateinit var rcList: RecyclerView
+    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
+        database = Firebase.database.reference
+
+        posts = arrayListOf()
+
+        database.child("posts").get().addOnSuccessListener {
+            if (it.value != null) {
+                val postsFromDB = it.value as HashMap<String, Any>
+                posts.clear()
+                postsFromDB.map { (key, value) ->
+                    val postFromDB = value as HashMap<String, Any>
+
+                    val title = postFromDB.get("title").toString()
+                    posts.add(title)
+                }
+                rcList.adapter?.notifyDataSetChanged()
+            }
         }
+
     }
 
     override fun onCreateView(
@@ -31,31 +51,10 @@ class PostFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_item_list, container, false)
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = MyPostRecyclerViewAdapter(DummyContent.ITEMS)
-            }
-        }
+        rcList = view.findViewById(R.id.list)
+        rcList.layoutManager = LinearLayoutManager(context)
+        rcList.adapter = MyPostRecyclerViewAdapter(posts)
+
         return view
-    }
-
-    companion object {
-
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            PostFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
     }
 }

@@ -20,20 +20,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        database = Firebase.database.reference
-
-        val posts: ArrayList<Any>
-
-        database.child("posts").get().addOnSuccessListener {
-            val dbposts:ArrayList<Any> = it.value as ArrayList<Any>;
-
-            dbposts.forEach {
-                val post = dbposts
-            }
-
-        }.addOnFailureListener{
-            Log.e("firebase", "Error getting data", it)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
