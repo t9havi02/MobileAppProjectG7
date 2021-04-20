@@ -3,6 +3,7 @@ package fi.oamk.groupfinderapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -18,7 +19,9 @@ import com.google.firebase.database.ValueEventListener
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
+import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.post.view.*
+import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         recyclerview_posts = findViewById(R.id.recyclerview_posts)
         fetchPosts()
+    }
+
+    companion object {
+        val POST_KEY = "POST_KEY"
     }
 
     private fun fetchPosts() {
@@ -46,7 +53,11 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 adapter.setOnItemClickListener { item, view ->
+
+                    val postItem = item as PostItem
+
                     val intent = Intent(view.context, PostActivity::class.java)
+                    intent.putExtra(POST_KEY, postItem.post)
                     startActivity(intent)
                 }
 
@@ -77,7 +88,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-class PostItem(val post: Post): Item<ViewHolder>() {
+class PostItem (val post: Post): Item<ViewHolder>(), Serializable {
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.postTitle.text = post.title
@@ -88,6 +99,6 @@ class PostItem(val post: Post): Item<ViewHolder>() {
     }
 }
 
-class Post(val contact: String, val date:String, val description: String, val time: String, val title: String, val user: String) {
+class Post(val contact: String, val date:String, val description: String, val time: String, val title: String, val user: String) : Serializable {
     constructor() : this("","","","","", "")
 }
