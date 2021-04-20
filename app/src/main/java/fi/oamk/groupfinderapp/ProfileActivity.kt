@@ -1,6 +1,8 @@
 package fi.oamk.groupfinderapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +12,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.ViewHolder
+import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : AppCompatActivity() {
     lateinit var userId: String
@@ -30,11 +35,12 @@ class ProfileActivity : AppCompatActivity() {
         userId = FirebaseAuth.getInstance().currentUser!!.uid
 
         fetchUser()
+        fetchEvents()
     }
 
     private fun fetchUser() {
         val ref = FirebaseDatabase.getInstance().getReference("users").child(userId)
-        ref.addValueEventListener(object: ValueEventListener {
+        ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 user = snapshot.getValue(User::class.java)
                 profile_city.text = user?.ucity
@@ -42,9 +48,34 @@ class ProfileActivity : AppCompatActivity() {
                 profile_name.text = (user?.uname)
                 Picasso.get().load(user?.profileImageUrl).into(profile_avatar);
             }
+
             override fun onCancelled(error: DatabaseError) {
 
             }
         })
     }
+
+    private fun fetchEvents() {
+        val ref = FirebaseDatabase.getInstance().getReference("/users/$userId/events")
+        ref.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val adapter = GroupAdapter<ViewHolder>()
+                snapshot.children.forEach() {
+                    Log.d("PostsActivity", it.toString())
+                    val post = it.getValue(Post::class.java)
+                    if(post != null) {
+                        adapter.add(PostItem(post))
+                    }
+                }
+                recyclerview_user_events.adapter = adapter
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
+
 }
+
+

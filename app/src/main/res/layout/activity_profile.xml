@@ -73,24 +73,24 @@
         app:layout_constraintStart_toStartOf="@+id/profile_avatar"
         app:layout_constraintTop_toBottomOf="@+id/profile_avatar" />
 
-    <Button
-        android:id="@+id/button"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_user_events"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="My posts"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextMultiLine2"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextMultiLine2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textView4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Meet-up: Board game night"
-        app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        android:layout_marginTop="10dp"
+        android:text="My events"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
