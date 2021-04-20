@@ -44,6 +44,12 @@ class MainActivity : AppCompatActivity() {
                         adapter.add(PostItem(post))
                     }
                 }
+
+                adapter.setOnItemClickListener { item, view ->
+                    val intent = Intent(view.context, PostActivity::class.java)
+                    startActivity(intent)
+                }
+
                 recyclerview_posts.adapter = adapter
             }
 
