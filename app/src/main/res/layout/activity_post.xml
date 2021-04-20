@@ -59,11 +59,11 @@
         app:layout_constraintTop_toBottomOf="@+id/contactInfoView" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/submit_participation"
         android:layout_width="376dp"
         android:layout_height="52dp"
         android:layout_marginTop="32dp"
-        android:text="Button"
+        android:text="Participate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.296"
         app:layout_constraintStart_toStartOf="@+id/contactInfoView"
