@@ -34,6 +34,10 @@ class MainActivity : AppCompatActivity() {
         recyclerview_posts = findViewById(R.id.recyclerview_posts)
         fetchPosts()
         fetchPremiumPosts()
+
+        createPost_btn.setOnClickListener{
+            moveToCreatePost()
+        }
     }
 
     companion object {
@@ -68,6 +72,11 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
+    }
+
+    fun moveToCreatePost() {
+        val intent = Intent(this, CreatePostActivity::class.java)
+        startActivity(intent)
     }
 
     private fun fetchPremiumPosts() {
