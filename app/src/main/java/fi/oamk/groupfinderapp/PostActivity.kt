@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_post.*
@@ -32,11 +33,12 @@ class PostActivity : AppCompatActivity() {
 
     fun submitParticipation() {
         val uid = FirebaseAuth.getInstance().uid ?: ""
-        val ref = FirebaseDatabase.getInstance().getReference("/users/$uid/events/${data.title.toString()}")
-        val post = Post(data.contact.toString(),data.date.toString(), data.time.toString(), data.description.toString(), data.title.toString(), data.user.toString())
+        val ref = FirebaseDatabase.getInstance().getReference("/users/$uid/events/${data.key.toString()}")
+        val post = Post(data.contact.toString(),data.date.toString(), data.time.toString(), data.description.toString(), data.title.toString(), data.key.toString())
         ref.setValue(post)
             .addOnSuccessListener {
-                Log.d("Participate", "Add post to Firebase")
+                Toast.makeText(baseContext, "Success",
+                        Toast.LENGTH_SHORT).show()
             }
     }
 }
