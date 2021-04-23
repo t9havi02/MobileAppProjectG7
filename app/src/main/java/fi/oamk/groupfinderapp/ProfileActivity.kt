@@ -3,6 +3,7 @@ package fi.oamk.groupfinderapp
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -34,6 +35,8 @@ class ProfileActivity : AppCompatActivity() {
         profile_avatar = findViewById(R.id.profile_avatar)
 
         userId = FirebaseAuth.getInstance().currentUser!!.uid
+
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         set_status_btn.setOnClickListener{
             setStatus()
