@@ -66,14 +66,21 @@ class RegisterActivity: AppCompatActivity() {
         email = findViewById(R.id.reg_email)
         password = findViewById(R.id.reg_password)
 
+        if (selectedPhotoUri == null) {
+            Toast.makeText(baseContext, "Image is required",
+                    Toast.LENGTH_SHORT).show()
+            return
+        }
         if(!isValidEmail(email.text.toString())) {
             Toast.makeText(baseContext, "Wrong email format",
                     Toast.LENGTH_SHORT).show()
+            return
         }
 
         if(password.text.length < 6) {
             Toast.makeText(baseContext, "Password must be at least 6 symbols long",
                     Toast.LENGTH_SHORT).show()
+            return
         }
 
         auth.createUserWithEmailAndPassword(email.text.toString().trim(), password.text.toString().trim())
