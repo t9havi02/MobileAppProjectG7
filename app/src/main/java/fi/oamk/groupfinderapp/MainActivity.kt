@@ -20,6 +20,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.post.view.*
 import java.io.Serializable
 
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         recyclerview_posts = findViewById(R.id.recyclerview_posts)
         fetchPosts()
+        fetchPremiumPosts()
     }
 
     companion object {
@@ -53,15 +55,42 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 adapter.setOnItemClickListener { item, view ->
-
                     val postItem = item as PostItem
-
                     val intent = Intent(view.context, PostActivity::class.java)
                     intent.putExtra(POST_KEY, postItem.post)
                     startActivity(intent)
                 }
 
                 recyclerview_posts.adapter = adapter
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
+
+    private fun fetchPremiumPosts() {
+        val ref = FirebaseDatabase.getInstance().getReference("/pposts")
+        ref.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val adapter = GroupAdapter<ViewHolder>()
+                snapshot.children.forEach() {
+                    Log.d("PremiumPostsActivity", it.toString())
+                    val post = it.getValue(Post::class.java)
+                    if(post != null) {
+                        adapter.add(PostItem(post))
+                    }
+                }
+
+                adapter.setOnItemClickListener { item, view ->
+                    val postItem = item as PostItem
+                    val intent = Intent(view.context, PostActivity::class.java)
+                    intent.putExtra(POST_KEY, postItem.post)
+                    startActivity(intent)
+                }
+
+                recyclerview_pposts.adapter = adapter
             }
 
             override fun onCancelled(error: DatabaseError) {
