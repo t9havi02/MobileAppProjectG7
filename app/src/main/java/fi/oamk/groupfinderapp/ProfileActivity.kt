@@ -36,6 +36,10 @@ class ProfileActivity : AppCompatActivity() {
 
         userId = FirebaseAuth.getInstance().currentUser!!.uid
 
+        activate_premium.setOnClickListener{
+            activatePremium()
+        }
+
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         fetchUser()
@@ -80,6 +84,14 @@ class ProfileActivity : AppCompatActivity() {
         })
     }
 
+    private fun activatePremium() {
+        val ref = FirebaseDatabase.getInstance().getReference("/users/$userId").child("premium")
+        ref.setValue(true)
+                .addOnSuccessListener {
+                    Toast.makeText(baseContext, "Premium account activated",
+                            Toast.LENGTH_SHORT).show()
+                }
+    }
 
 }
 
