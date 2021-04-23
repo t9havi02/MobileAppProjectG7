@@ -3,13 +3,10 @@ package fi.oamk.groupfinderapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -19,7 +16,6 @@ import com.google.firebase.database.ValueEventListener
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.post.view.*
 import java.io.Serializable
@@ -140,7 +136,7 @@ class PremiumPostItem (val post: Post): Item<ViewHolder>(), Serializable {
         viewHolder.itemView.postTitle.text = post.title
     }
     override fun getLayout(): Int {
-        return R.layout.fragment_item2
+        return R.layout.premium_post
     }
 }
 
