@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -33,6 +34,10 @@ class ProfileActivity : AppCompatActivity() {
         profile_avatar = findViewById(R.id.profile_avatar)
 
         userId = FirebaseAuth.getInstance().currentUser!!.uid
+
+        set_status_btn.setOnClickListener{
+            setStatus()
+        }
 
         fetchUser()
         fetchEvents()
@@ -74,6 +79,19 @@ class ProfileActivity : AppCompatActivity() {
 
             }
         })
+    }
+
+    private fun setStatus() {
+        val ref = FirebaseDatabase.getInstance().getReference("users").child(userId).child("status")
+        ref.setValue(profile_status.text.toString())
+                .addOnSuccessListener{
+                    Toast.makeText(baseContext, "Your status was saved",
+                            Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener{
+                    Toast.makeText(baseContext, "Ooops... Something went wrong",
+                            Toast.LENGTH_SHORT).show()
+                }
     }
 
 }
