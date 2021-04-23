@@ -3,8 +3,11 @@ package fi.oamk.groupfinderapp
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -29,6 +32,9 @@ class RegisterActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         auth = Firebase.auth
         add_photo_btn = findViewById(R.id.add_photo_btn)
         uname = findViewById(R.id.reg_name)
@@ -52,25 +58,34 @@ class RegisterActivity: AppCompatActivity() {
         }
     }
 
+    private fun isValidEmail(email: String): Boolean {
+        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
     fun register(view: View) {
         email = findViewById(R.id.reg_email)
         password = findViewById(R.id.reg_password)
 
+        if(!isValidEmail(email.text.toString())) {
+            Toast.makeText(baseContext, "Wrong email format",
+                    Toast.LENGTH_SHORT).show()
+        }
+
+        if(password.text.length < 6) {
+            Toast.makeText(baseContext, "Password must be at least 6 symbols long",
+                    Toast.LENGTH_SHORT).show()
+        }
+
         auth.createUserWithEmailAndPassword(email.text.toString().trim(), password.text.toString().trim())
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "createUserWithEmail:success")
-                        val user = auth.currentUser
                         val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
-                        Toast.makeText(baseContext, "Authentication success",
+                        Toast.makeText(baseContext, "You have successfully been registered",
                                 Toast.LENGTH_SHORT).show()
                         uploadImageToFirebaseStorage()
                     } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                        Toast.makeText(baseContext, "Authentication failed.",
+                        Toast.makeText(baseContext, "Registration failed.",
                                 Toast.LENGTH_SHORT).show()
                     }
                 }
