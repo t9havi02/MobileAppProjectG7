@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 adapter.setOnItemClickListener { item, view ->
-                    val postItem = item as PostItem
+                    val postItem = item as PremiumPostItem
                     val intent = Intent(view.context, PostActivity::class.java)
                     intent.putExtra(POST_KEY, postItem.post)
                     startActivity(intent)
