@@ -86,7 +86,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun activatePremium() {
         val ref = FirebaseDatabase.getInstance().getReference("/users/$userId").child("premium")
-        ref.setValue(true)
+        ref.setValue(1.toString())
                 .addOnSuccessListener {
                     Toast.makeText(baseContext, "Premium account activated",
                             Toast.LENGTH_SHORT).show()
