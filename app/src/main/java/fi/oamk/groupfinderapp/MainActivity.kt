@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    fun moveToCreatePost() {
+    private fun moveToCreatePost() {
         val intent = Intent(this, CreatePostActivity::class.java)
         startActivity(intent)
     }
@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("PremiumPostsActivity", it.toString())
                     val post = it.getValue(Post::class.java)
                     if(post != null) {
-                        adapter.add(PostItem(post))
+                        adapter.add(PremiumPostItem(post))
                     }
                 }
 
@@ -127,13 +127,20 @@ class MainActivity : AppCompatActivity() {
 }
 
 class PostItem (val post: Post): Item<ViewHolder>(), Serializable {
-
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.postTitle.text = post.title
     }
-
     override fun getLayout(): Int {
         return R.layout.post
+    }
+}
+
+class PremiumPostItem (val post: Post): Item<ViewHolder>(), Serializable {
+    override fun bind(viewHolder: ViewHolder, position: Int) {
+        viewHolder.itemView.postTitle.text = post.title
+    }
+    override fun getLayout(): Int {
+        return R.layout.fragment_item2
     }
 }
 
