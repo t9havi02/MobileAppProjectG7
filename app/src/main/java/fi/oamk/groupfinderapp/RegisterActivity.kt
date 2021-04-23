@@ -66,14 +66,21 @@ class RegisterActivity: AppCompatActivity() {
         email = findViewById(R.id.reg_email)
         password = findViewById(R.id.reg_password)
 
+        if (selectedPhotoUri == null) {
+            Toast.makeText(baseContext, "Image is required",
+                    Toast.LENGTH_SHORT).show()
+            return
+        }
         if(!isValidEmail(email.text.toString())) {
             Toast.makeText(baseContext, "Wrong email format",
                     Toast.LENGTH_SHORT).show()
+            return
         }
 
         if(password.text.length < 6) {
             Toast.makeText(baseContext, "Password must be at least 6 symbols long",
                     Toast.LENGTH_SHORT).show()
+            return
         }
 
         auth.createUserWithEmailAndPassword(email.text.toString().trim(), password.text.toString().trim())
@@ -110,7 +117,7 @@ class RegisterActivity: AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
 
-        val user = User(uid, uname.text.toString(), ucity.text.toString(), uage.text.toString(), profileImageUrl)
+        val user = User(uid, uname.text.toString(), ucity.text.toString(), uage.text.toString(), profileImageUrl, 0.toString())
 
         ref.setValue(user)
                 .addOnSuccessListener {
@@ -124,6 +131,6 @@ class RegisterActivity: AppCompatActivity() {
     }
 }
 
-class User(val uid: String, val uname:String, val ucity: String, val uage: String, val profileImageUrl: String) {
-    constructor() : this("","","","","")
+class User(val uid: String, val uname:String, val ucity: String, val uage: String, val profileImageUrl: String, val premium: String) {
+    constructor() : this("","","","","", "")
 }

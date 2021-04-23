@@ -36,11 +36,11 @@ class ProfileActivity : AppCompatActivity() {
 
         userId = FirebaseAuth.getInstance().currentUser!!.uid
 
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
-        set_status_btn.setOnClickListener{
-            setStatus()
+        activate_premium.setOnClickListener{
+            activatePremium()
         }
+
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         fetchUser()
         fetchEvents()
@@ -84,15 +84,11 @@ class ProfileActivity : AppCompatActivity() {
         })
     }
 
-    private fun setStatus() {
-        val ref = FirebaseDatabase.getInstance().getReference("users").child(userId).child("status")
-        ref.setValue(profile_status.text.toString())
-                .addOnSuccessListener{
-                    Toast.makeText(baseContext, "Your status was saved",
-                            Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener{
-                    Toast.makeText(baseContext, "Ooops... Something went wrong",
+    private fun activatePremium() {
+        val ref = FirebaseDatabase.getInstance().getReference("/users/$userId").child("premium")
+        ref.setValue(1.toString())
+                .addOnSuccessListener {
+                    Toast.makeText(baseContext, "Premium account activated",
                             Toast.LENGTH_SHORT).show()
                 }
     }
