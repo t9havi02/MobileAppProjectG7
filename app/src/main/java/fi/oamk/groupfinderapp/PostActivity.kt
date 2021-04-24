@@ -18,13 +18,14 @@ class PostActivity : AppCompatActivity() {
 
         data = (intent.extras?.getSerializable("POST_KEY") as? Post)!!
 
-        if (data != null) {
-            dateView.text = "Date: ${data.date.toString()}"
-            timeView.text = "Time: ${data.time.toString()}"
-            contactInfoView.text = "Contact at ${data.contact.toString()}"
-            generalInfoView.text = data.description.toString()
-            Log.d("SinglePost", data.title.toString())
-        }
+        Log.d("TestPost", data.num_participants.toString())
+
+        dateView.text = "Date: ${data.date.toString()}"
+        timeView.text = "Time: ${data.time.toString()}"
+        contactInfoView.text = "Contact at ${data.contact.toString()}"
+        generalInfoView.text = data.description.toString()
+        placesView.text = data.num_participants.toString()
+        Log.d("SinglePost", data.title.toString())
 
         submit_participation.setOnClickListener{
             submitParticipation()
@@ -34,11 +35,15 @@ class PostActivity : AppCompatActivity() {
     fun submitParticipation() {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid/events/${data.key.toString()}")
-        val post = Post(data.contact.toString(),data.date.toString(), data.time.toString(), data.description.toString(), data.title.toString(), data.key.toString())
+        val post = Post(data.contact.toString(),data.date.toString(), data.time.toString(), data.description.toString(), data.title.toString(), data.key.toString(), data.num_participants.toString())
         ref.setValue(post)
             .addOnSuccessListener {
                 Toast.makeText(baseContext, "Success",
                         Toast.LENGTH_SHORT).show()
             }
+        val refPost = FirebaseDatabase.getInstance().getReference("/posts/${data.key.toString()}").child("num_participants")
+        refPost.setValue(
+                (data.num_participants.toInt() - 1).toString()
+        )
     }
 }

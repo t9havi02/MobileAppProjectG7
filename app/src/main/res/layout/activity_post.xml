@@ -62,10 +62,31 @@
         android:id="@+id/submit_participation"
         android:layout_width="376dp"
         android:layout_height="52dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
         android:text="Participate"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.296"
-        app:layout_constraintStart_toStartOf="@+id/contactInfoView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.67" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="Places left:"
+        app:layout_constraintStart_toStartOf="@+id/generalInfoView"
         app:layout_constraintTop_toBottomOf="@+id/generalInfoView" />
+
+    <TextView
+        android:id="@+id/placesView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/textView7"
+        app:layout_constraintStart_toEndOf="@+id/textView7"
+        app:layout_constraintTop_toTopOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
