@@ -80,6 +80,8 @@
         android:layout_marginTop="52dp"
         android:layout_marginRight="15dp"
         android:text="Activate Premium"
+        android:textColor="@color/white"
+        android:backgroundTint="#FF6600"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.344"
         app:layout_constraintStart_toStartOf="parent"
