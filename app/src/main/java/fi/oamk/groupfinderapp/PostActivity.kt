@@ -27,8 +27,12 @@ class PostActivity : AppCompatActivity() {
         placesView.text = data.num_participants.toString()
         Log.d("SinglePost", data.title.toString())
 
-        submit_participation.setOnClickListener{
-            submitParticipation()
+        if(data.num_participants.toInt() < 1) {
+            submit_participation.text = "Out of places"
+        } else {
+            submit_participation.setOnClickListener{
+                submitParticipation()
+            }
         }
     }
 
