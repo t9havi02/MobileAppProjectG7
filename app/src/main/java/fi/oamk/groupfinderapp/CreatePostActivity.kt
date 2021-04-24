@@ -29,6 +29,7 @@ class CreatePostActivity: AppCompatActivity() {
     private lateinit var edNumParticipants: EditText
     private lateinit var userId: String
     private lateinit var p_value: String
+    private lateinit var premium: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,9 +64,14 @@ class CreatePostActivity: AppCompatActivity() {
         val contact = edContact.text.toString()
         val description = edDescription.text.toString()
         val num_participants = edNumParticipants.text.toString()
+        if (check_premium.isChecked) {
+            premium = "1"
+        } else {
+            premium = "0"
+        }
 
         val key = database.child( "posts").push().key.toString()
-        val item = Item(key, title, date, time, contact, description, num_participants)
+        val item = Item(key, title, date, time, contact, description, num_participants, premium)
         if(check_premium.isChecked) {
             if(p_value.toInt() == 1) {
                 database.child( "pposts").child(key).setValue(item)

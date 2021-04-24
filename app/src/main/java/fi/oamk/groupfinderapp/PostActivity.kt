@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_post.*
+import java.util.*
 
 class PostActivity : AppCompatActivity() {
     lateinit var data: Post
@@ -48,7 +49,7 @@ class PostActivity : AppCompatActivity() {
     fun submitParticipation() {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid/events/${data.key.toString()}")
-        val post = Post(data.contact.toString(),data.date.toString(), data.time.toString(), data.description.toString(), data.title.toString(), data.key.toString(), data.num_participants.toString())
+        val post = Post(data.contact.toString(),data.date.toString(), data.time.toString(), data.description.toString(), data.title.toString(), data.key.toString(), data.num_participants.toString(), data.premium.toString())
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -61,10 +62,19 @@ class PostActivity : AppCompatActivity() {
                             Toast.makeText(baseContext, "Success",
                                 Toast.LENGTH_SHORT).show()
                         }
-                    val refPost = FirebaseDatabase.getInstance().getReference("/posts/${data.key.toString()}").child("num_participants")
-                    refPost.setValue(
-                        (data.num_participants.toInt() - 1).toString()
-                    )
+                    if (data.premium.toString() == "0") {
+                        val refPost = FirebaseDatabase.getInstance().getReference("/posts/${data.key.toString()}").child("num_participants")
+                        refPost.setValue(
+                            (data.num_participants.toInt() - 1).toString()
+                        )
+                    } else {
+                        val refPost = FirebaseDatabase.getInstance().getReference("/pposts/${data.key.toString()}").child("num_participants")
+                        refPost.setValue(
+                            (data.num_participants.toInt() - 1).toString()
+                        )
+                    }
+
+
                 }
             }
 
