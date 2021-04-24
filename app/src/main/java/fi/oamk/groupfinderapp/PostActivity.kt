@@ -20,9 +20,10 @@ class PostActivity : AppCompatActivity() {
 
         Log.d("TestPost", data.num_participants.toString())
 
-        dateView.text = "Date: ${data.date.toString()}"
-        timeView.text = "Time: ${data.time.toString()}"
-        contactInfoView.text = "Contact at ${data.contact.toString()}"
+        dateView.text = data.date.toString()
+        titleView.text = data.title.toString()
+        timeView.text = data.time.toString()
+        contactInfoView.text = data.contact.toString()
         generalInfoView.text = data.description.toString()
         placesView.text = data.num_participants.toString()
         Log.d("SinglePost", data.title.toString())
