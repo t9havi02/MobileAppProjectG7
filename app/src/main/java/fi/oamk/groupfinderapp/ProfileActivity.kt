@@ -76,6 +76,13 @@ class ProfileActivity : AppCompatActivity() {
                     }
                 }
                 recyclerview_user_events.adapter = adapter
+
+                adapter.setOnItemClickListener { item, view ->
+                    val postItem = item as PostItem
+                    val intent = Intent(view.context, PostActivity::class.java)
+                    intent.putExtra(MainActivity.POST_KEY, postItem.post)
+                    startActivity(intent)
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

@@ -140,6 +140,6 @@ class PremiumPostItem (val post: Post): Item<ViewHolder>(), Serializable {
     }
 }
 
-class Post(val contact: String, val date:String, val description: String, val time: String, val title: String, val key: String) : Serializable {
-    constructor() : this("","","","","", "")
+class Post(val contact: String, val date:String, val description: String, val time: String, val title: String, val key: String, val num_participants: String, val premium: String) : Serializable {
+    constructor() : this("","","","","", "", "", "")
 }

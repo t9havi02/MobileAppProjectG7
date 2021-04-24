@@ -10,14 +10,19 @@
         android:supportsRtl="true"
         android:windowSoftInputMode="adjustResize"
         android:theme="@style/Theme.GroupFinderApp">
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name=".LoginActivity"
+            android:label="Login"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity">
+        <activity
+            android:name=".RegisterActivity"
+            android:label="Register">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,24 +30,39 @@
             </intent-filter>
         </activity>
   
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:label="WeMeet">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProfileActivity">
+        <activity
+            android:name=".ProfileActivity"
+            android:label="Profile"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".CreatePostActivity">
+        <activity
+            android:name=".CreatePostActivity"
+            android:label="Create new post"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".PostActivity">
+        <activity
+            android:label="Event"
+            android:name=".PostActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />

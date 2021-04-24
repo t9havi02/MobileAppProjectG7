@@ -6,30 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/add_map_point"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.093" />
-
     <EditText
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="44dp"
         android:layout_marginRight="50dp"
         android:ems="10"
         android:hint="Title"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_map_point" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/date"
@@ -86,8 +76,9 @@
         android:hint="Description"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/contact" />
+        app:layout_constraintTop_toBottomOf="@+id/num_participants" />
 
     <Button
         android:id="@+id/submit"
@@ -99,17 +90,31 @@
         android:text="SUBMIT"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description"
-        app:layout_constraintVertical_bias="0.462" />
+        app:layout_constraintVertical_bias="0.549" />
 
     <CheckBox
         android:id="@+id/check_premium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Premium"
+        android:text="Premium Post"
         app:layout_constraintBottom_toTopOf="@+id/submit"
         app:layout_constraintStart_toStartOf="@+id/submit"
         app:layout_constraintTop_toBottomOf="@+id/description" />
+
+    <EditText
+        android:id="@+id/num_participants"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Number of participants"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/contact"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/contact"
+        app:layout_constraintTop_toBottomOf="@+id/contact" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
