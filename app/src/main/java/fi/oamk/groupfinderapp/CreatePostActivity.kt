@@ -26,6 +26,7 @@ class CreatePostActivity: AppCompatActivity() {
     private lateinit var edTime: EditText
     private lateinit var edContact: EditText
     private lateinit var edDescription: EditText
+    private lateinit var edNumParticipants: EditText
     private lateinit var userId: String
     private lateinit var p_value: String
 
@@ -40,6 +41,7 @@ class CreatePostActivity: AppCompatActivity() {
         edTime = findViewById(R.id.time)
         edContact = findViewById(R.id.contact)
         edDescription = findViewById(R.id.description)
+        edNumParticipants = findViewById(R.id.num_participants)
         userId = FirebaseAuth.getInstance().currentUser!!.uid
         database = Firebase.database.reference
 
@@ -60,9 +62,10 @@ class CreatePostActivity: AppCompatActivity() {
         val time = edTime.text.toString()
         val contact = edContact.text.toString()
         val description = edDescription.text.toString()
+        val num_participants = edNumParticipants.text.toString()
 
         val key = database.child( "posts").push().key.toString()
-        val item = Item(key, title, date, time, contact, description)
+        val item = Item(key, title, date, time, contact, description, num_participants)
         if(check_premium.isChecked) {
             if(p_value.toInt() == 1) {
                 database.child( "pposts").child(key).setValue(item)
