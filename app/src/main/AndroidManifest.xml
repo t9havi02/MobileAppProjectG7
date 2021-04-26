@@ -8,12 +8,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:windowSoftInputMode="adjustResize"
-        android:theme="@style/Theme.GroupFinderApp">
+        android:theme="@style/Theme.GroupFinderApp"
+        android:windowSoftInputMode="adjustResize">
+        <activity android:name=".SortedActivity"></activity>
         <activity
             android:name=".LoginActivity"
-            android:label="Login"
-            >
+            android:label="Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-  
         <activity
             android:name=".MainActivity"
             android:label="WeMeet">
@@ -41,33 +40,31 @@
         </activity>
         <activity
             android:name=".ProfileActivity"
-            android:label="Profile"
-            >
+            android:label="Profile">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".CreatePostActivity"
-            android:label="Create new post"
-            >
+            android:label="Create new post">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:label="Event"
-            android:name=".PostActivity">
+            android:name=".PostActivity"
+            android:label="Event">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
     </application>
 
 </manifest>

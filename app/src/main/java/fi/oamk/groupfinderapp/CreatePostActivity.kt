@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -22,6 +23,7 @@ import kotlin.properties.Delegates
 class CreatePostActivity: AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var edTitle: EditText
+    private lateinit var edPlace: Spinner
     private lateinit var edDate: EditText
     private lateinit var edTime: EditText
     private lateinit var edContact: EditText
@@ -38,6 +40,7 @@ class CreatePostActivity: AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         edTitle = findViewById(R.id.title)
+        edPlace = findViewById(R.id.place)
         edDate = findViewById(R.id.date)
         edTime = findViewById(R.id.time)
         edContact = findViewById(R.id.contact)
@@ -59,6 +62,7 @@ class CreatePostActivity: AppCompatActivity() {
 
     fun post(view: View) {
         val title = edTitle.text.toString()
+        val place = edPlace.selectedItem.toString()
         val date = edDate.text.toString()
         val time = edTime.text.toString()
         val contact = edContact.text.toString()
@@ -71,7 +75,7 @@ class CreatePostActivity: AppCompatActivity() {
         }
 
         val key = database.child( "posts").push().key.toString()
-        val item = Item(key, title, date, time, contact, description, num_participants, premium)
+        val item = Item(key, title, place, date, time, contact, description, num_participants, premium)
         if(check_premium.isChecked) {
             if(p_value.toInt() == 1) {
                 database.child( "pposts").child(key).setValue(item)
