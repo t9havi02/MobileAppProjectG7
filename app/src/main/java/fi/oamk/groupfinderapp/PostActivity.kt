@@ -27,6 +27,7 @@ class PostActivity : AppCompatActivity() {
 
         dateView.text = data.date.toString()
         titleView.text = data.title.toString()
+        placeView.text = data.place.toString()
         timeView.text = data.time.toString()
         contactInfoView.text = data.contact.toString()
         generalInfoView.text = data.description.toString()
@@ -49,7 +50,7 @@ class PostActivity : AppCompatActivity() {
     fun submitParticipation() {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid/events/${data.key.toString()}")
-        val post = Post(data.contact.toString(),data.date.toString(), data.time.toString(), data.description.toString(), data.title.toString(), data.key.toString(), data.num_participants.toString(), data.premium.toString())
+        val post = Post(data.contact.toString(), data.place.toString(), data.date.toString(), data.time.toString(), data.description.toString(), data.title.toString(), data.key.toString(), data.num_participants.toString(), data.premium.toString())
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
