@@ -41,6 +41,7 @@ class SortedActivity : AppCompatActivity() {
                 id: Long
             ) {
                 fetchPosts()
+                fetchPremiumPosts()
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>?) {
@@ -48,6 +49,7 @@ class SortedActivity : AppCompatActivity() {
             }
         })
         fetchPosts()
+        fetchPremiumPosts()
     }
 
     companion object {
@@ -95,12 +97,14 @@ class SortedActivity : AppCompatActivity() {
                     Log.d("PremiumPostsActivity", it.toString())
                     val post = it.getValue(Post::class.java)
                     if(post != null) {
-                        adapter.add(PremiumPostItem(post))
+                        if (post.place.toString() == city.selectedItem.toString()) {
+                            adapter.add(SortedPremiumPostItem(post))
+                        }
                     }
                 }
 
                 adapter.setOnItemClickListener { item, view ->
-                    val postItem = item as PremiumPostItem
+                    val postItem = item as SortedPremiumPostItem
                     val intent = Intent(view.context, PostActivity::class.java)
                     intent.putExtra(POST_KEY, postItem.post)
                     startActivity(intent)
@@ -123,5 +127,13 @@ class SortedPostItem (val post: Post): Item<ViewHolder>(), Serializable {
     }
     override fun getLayout(): Int {
         return R.layout.post
+    }
+}
+class SortedPremiumPostItem (val post: Post): Item<ViewHolder>(), Serializable {
+    override fun bind(viewHolder: ViewHolder, position: Int) {
+        viewHolder.itemView.postTitle.text = post.title
+    }
+    override fun getLayout(): Int {
+        return R.layout.premium_post
     }
 }
